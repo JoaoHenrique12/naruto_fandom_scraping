@@ -82,7 +82,9 @@ CREATE TABLE IF NOT EXISTS  ninja_have_jutsu (
     jutsu_id INT NOT NULL,
 
     CONSTRAINT FK_ninja_have_jutsu_ninja FOREIGN KEY(ninja_id) REFERENCES ninja(id),
-    CONSTRAINT FK_ninja_have_jutsu_jutsu FOREIGN KEY(jutsu_id) REFERENCES jutsu(id)
+    CONSTRAINT FK_ninja_have_jutsu_jutsu FOREIGN KEY(jutsu_id) REFERENCES jutsu(id),
+
+    CONSTRAINT PK_ninja_have_jutsu PRIMARY KEY(ninja_id, jutsu_id)
 );
 
 CREATE TABLE IF NOT EXISTS  jutsu_is_similar_jutsu (
