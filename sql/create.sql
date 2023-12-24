@@ -98,8 +98,3 @@ CREATE UNIQUE INDEX unique_permutation_jutsu_is_similar_jutsu ON jutsu_is_simila
   LEAST(first_jutsu_id, second_jutsu_id),
   GREATEST(first_jutsu_id, second_jutsu_id)
 );
-
-CREATE UNIQUE INDEX unique_permutation_ninja_have_jutsu ON ninja_have_jutsu (
-  LEAST(ninja_id, jutsu_id),
-  GREATEST(ninja_id, jutsu_id)
-);
