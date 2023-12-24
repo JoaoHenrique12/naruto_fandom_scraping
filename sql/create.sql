@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS classification (
 
 -- One to many
 CREATE TABLE IF NOT EXISTS jutsu_name (
-    jutsu_id INT NOT NULL,
+    jutsu_id INT NOT NULL PRIMARY KEY,
     source VARCHAR(15) NOT NULL,
     name VARCHAR(100) NOT NULL,
 
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS  jutsu_have_seal (
 );
 
 CREATE TABLE IF NOT EXISTS  jutsu_have_classification (
-    jutsu_id INT NOT NULL,
+    jutsu_id INT NOT NULL PRIMARY KEY,
     classification_id INT NOT NULL,
 
     CONSTRAINT FK_jutsu_have_classification_classification FOREIGN KEY(classification_id) REFERENCES classification(id),
@@ -98,3 +98,6 @@ CREATE UNIQUE INDEX unique_permutation_jutsu_is_similar_jutsu ON jutsu_is_simila
   LEAST(first_jutsu_id, second_jutsu_id),
   GREATEST(first_jutsu_id, second_jutsu_id)
 );
+
+-- Simple index
+CREATE INDEX idx_jutsu_have_seal ON jutsu_have_seal (jutsu_id);
