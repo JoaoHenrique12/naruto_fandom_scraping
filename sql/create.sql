@@ -15,7 +15,7 @@ type_classification
     R -> Rank, R-, RS, RA, RB, RC, RD, RE
          https://naruto.fandom.com/pt-br/wiki/Categoria:Ninjutsu
     E -> Main Elements: (agua, terra, vento, fogo, relampago)
-    U -> Used for: Attack, Defense...
+    U -> Used as: Attack, Defense...
 */
 
 CREATE TYPE type_range_jutsu AS ENUM ('S', 'M', 'L');
