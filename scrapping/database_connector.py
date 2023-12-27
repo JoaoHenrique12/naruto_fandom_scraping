@@ -3,7 +3,6 @@ from typing import List, Any
 import psycopg2
 
 
-
 class DataBase:
     def __init__(self):
         conn_string = "host='%s' dbname='%s' user='%s' password='%s'" %\
