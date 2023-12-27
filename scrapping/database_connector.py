@@ -45,14 +45,3 @@ class DataBase:
 
     def __exit__(self, exception_type, exception_value, exception_traceback):
         self.conn.close()
-
-with DataBase() as db:
-    try:
-        db.execute("insert into ninja (name) values " + db.elements_to_string(["HellSank"]) + ';')
-    except psycopg2.errors.UniqueViolation:
-        db.conn.rollback()
-        print("Erro, unique.")
-
-    db.execute("select * from ninja;")
-
-    print(db.cur.fetchall())
