@@ -1,7 +1,16 @@
+from bisect import bisect_left
+
 from database_connector import DataBase
 
+NOT_FOUND = -1
+def binary_search(lst, el):
+    i = bisect_left(lst, el)
+    if i != len(lst) and lst[i] == el:
+        return i
+    return NOT_FOUND
+
 def clean_string(string):
-    return string.strip().lower()
+    return string.strip().lower().replace('–','-')
 
 def load_info_ninjutsu():
     def load_specific_info(query: str):
