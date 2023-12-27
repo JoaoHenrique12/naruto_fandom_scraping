@@ -1,17 +1,28 @@
 import os
+import sys
 from typing import List, Any
 import psycopg2
 
 
 class DataBase:
     def __init__(self):
-        conn_string = "host='%s' dbname='%s' user='%s' password='%s'" %\
-            (
-                os.environ['HOST'],
-                os.environ['POSTGRES_DB'],
-                os.environ['POSTGRES_USER'],
-                os.environ['POSTGRES_PASSWORD']
-            )
+        try:
+            conn_string = "host='%s' dbname='%s' user='%s' password='%s'" %\
+                (
+                    os.environ['HOST'],
+                    os.environ['POSTGRES_DB'],
+                    os.environ['POSTGRES_USER'],
+                    os.environ['POSTGRES_PASSWORD']
+                )
+        except KeyError:
+            print(f"Warning, environment variables not found, using default values. Check file: {__file__}", sys.stderr)
+            conn_string = "host='%s' dbname='%s' user='%s' password='%s'" %\
+                (
+                    'localhost',
+                    'naruto_db',
+                    'postgres',
+                    'postgres'
+                )
 
         self.conn = psycopg2.connect(conn_string)
         self.cur = self.conn.cursor()
