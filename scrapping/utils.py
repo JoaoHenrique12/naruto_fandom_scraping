@@ -3,27 +3,23 @@ from database_connector import DataBase
 def clean_string(string):
     return string.strip().lower()
 
-def load_specific_info(query: str):
-    dictionary = dict()
-    with DataBase() as db:
-        db.execute(query)
-        values = db.cur.fetchall()
-
-        for v in values:
-            key = clean_string(v[0])
-            dictionary[key] = v[1]
-
-    return dictionary
-
 def load_info_ninjutsu():
-    classification1_map = load_specific_info("select label, id from classification where mark = '1';")
-    classification2_map = load_specific_info("select label, id from classification where mark = '2';")
+    def load_specific_info(query: str):
+        with DataBase() as db:
+            db.execute(query)
+            values = [(clean_string(v[0]), v[1]) for v in db.cur.fetchall()]
+            dictionary = dict(values)
 
-    seals_map = load_specific_info("select label, id from seal;")
-    elements_map = load_specific_info("select label, id from classification where mark = 'E';")
+        return dictionary
 
-    rank_map = load_specific_info("select label, id from classification where mark = 'R';")
+    main_info = {}
+    main_info['c1'] = load_specific_info("select label, id from classification where mark = '1';")
+    main_info['c2'] = load_specific_info("select label, id from classification where mark = '2';")
 
-    used_for_map = load_specific_info("select label, id from classification where mark = 'U';")
+    main_info['seals'] = load_specific_info("select label, id from seal;")
+    main_info['elements'] = load_specific_info("select label, id from classification where mark = 'E';")
 
-    return (seals_map, rank_map, classification1_map, classification2_map, elements_map, used_for_map)
+    main_info['rank'] = load_specific_info("select label, id from classification where mark = 'R';")
+    main_info['used_for'] = load_specific_info("select label, id from classification where mark = 'U';")
+
+    return main_info
