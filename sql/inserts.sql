@@ -1,3 +1,4 @@
+-- https://naruto.fandom.com/pt-br/wiki/Selos_de_M%C3%A3o#Selos_b%C3%A1sicos
 insert into seal (label)
 values 
 ('???'),
@@ -8,6 +9,7 @@ values
 ('Cavalo'), ('Macaco'),
 ('Coelho'), ('Carneiro');
 
+--https://naruto.fandom.com/pt-br/wiki/Categoria:Jutsu 
 insert into classification (mark, label, description)
 values
 ('R', 'Rank -', 'O Rank – (–ランク, – ranku) é utilizado no sistema de ranqueamento exclusivamente para técnicas, a fim de classificar as que não se encaixam na hierarquia padrão. Essas técnicas geralmente são provenientes de habilidades especiais do usuário — como linhagem sanguínea ou técnicas hiden — técnicas que utilizam animais, invocações, etc.'),
@@ -19,9 +21,18 @@ values
 ('R', 'Rank E', 'Rank E (Eランク, Ī ranku) é uma das seis classificações ninja, sendo a mais baixa dentre todas. Ele é seguido pelo Rank D e usado exclusivamente na classificação de técnicas destinadas aos estudantes da Academia. Um número de técnicas Rank E deve ser aprendido antes do ninja poder se graduar, e elas só são difíceis no sentido de que os alunos podem não ter aprendido a controlar adequadamente o seu chakra. Com o tempo, técnicas de Rank E como a Técnica de Substituição tornam-se uma segunda natureza para ninjas experientes.');
 
 
+-- https://naruto.fandom.com/pt-br/wiki/Categoria:Jutsu
 insert into classification (mark, label, description)
 values
 ('1', 'Ninjutsu', 'Ninjutsu (忍術; literalmente significa: "Técnicas Ninjas") que refere-se à quase toda técnica e permite ao usuário fazer algo que ele seria capaz de fazer de outra maneira, incluindo o uso de armas. Diferente de genjutsu, que faz o alvo ver ilusões, os efeitos do ninjutsu são reais. Eles variam grandemente no propósito, com os ninjutsu mais simples sendo usados para tarefas como transformar o usuário ou permitindo-o desviar de ataques. Essas técnicas frequentemente são a segunda natureza de shinobi experientes, que podem usá-las à vontade. Ninjutsu mais complexos manipulam o ambiente ou utilizam elementos, respectivamente servindo a tarefas como curar os outros ou manipular Mudanças da Natureza. Ninjutsu, na maioria do tempo, conta com chakra e selos de mão para ser eficiente. As mãos são postas em posições sequenciais que moldam e manipulam o chakra da maneira necessária para realizar uma técnica. Porém isso não é sempre preciso e algumas técnicas tornam-se a segunda natureza de ninjas experientes, que podem ser realizadas à vontade.'),
 ('1', 'Taijutsu', 'Taijutsu (体術; literalmente significa: "Técnicas Corporais"; Panini: "Técnicas de Combate"; "Técnicas de Luta Corporal")[1][2] é uma forma básica de técnicas e refere-se à qualquer técnica que envolva artes marciais ou a otimização das habilidades humanas naturais. O taijutsu é executado ao acessar diretamente as energias físicas e mentais do usuário, contando com a resistência e força ganhas através do treinamento. O taijutsu tipicamente não requer chakra, apesar do chakra poder ser usado para fortificar suas técnicas, e dispensa selos de mão na maioria das vezes, ocasionalmente fazendo certos gestos ou poses, além de ser muito mais rápido de usar do que ninjutsu ou genjutsu. Taijutsu é colocado simplesmente como combate corpo-a-corpo e pode ser regionalizado, como o "boxe" (ボクシング, bokushingu) sendo reconhecido como um estilo de taijutsu estrangeiro por um ninja de Konohagakure.[3]'),
 ('1', 'Genjutsu', 'Genjutsu (幻術; literalmente significa: "Técnicas Ilusórias"; Panini: "Técnica de Ilusão" ou "Técnica Ilusória"; Dublagem: "Jutsu de Ilusão")[1][2] são técnicas que são empregadas do mesmo modo que o ninjutsu, requerendo converter estamina em chakra usando selos de mão e o controle de chakra.[3] Isso é um método simples de criar um tipo de alucinação por hipnose.[4] Além disso, genjutsu se enquadra claramente no Estilo Yin por sua capacidade de criar formas a partir do nada.[5]'),
 ('1', 'Shinjutsu', 'Shinjutsu (神術; literalmente significa: "Técnica Divina") são habilidades que superam o ninjutsu e senjutsu, sendo comparáveis a milagres divinos. Shibai Ootsutsuki, que consumiu incontáveis Frutos de Chakra ao longo de milênios, acumulou em si informação genética o suficiente para evoluir até se tornar em uma divindade, obtendo o shinjutsu. Sem a necessidade de selos de mão, como no ninjutsu, Shibai podia criar tempestades com um aceno de sua mão e gerar raios com seu rugido.[1]');
+
+-- https://naruto.fandom.com/pt-br/wiki/Mudan%C3%A7a_da_Natureza
+insert into classification (mark, label, description)
+values
+('E', 'Estilo Fogo', '(火遁, Katon) — é forte contra Vento, mas fraco contra Água.'),
+('E', 'Estilo Vento','(風遁, Fuuton) — é forte contra Trovão, mas fraco contra Fogo.'),
+('E', 'Estilo Terra','(土遁, Doton) — é forte contra Água, mas fraco contra Trovão.'),
+('E', 'Estilo Água', '(水遁, Suiton) — é forte contra Fogo, mas fraco contra Terra.');
