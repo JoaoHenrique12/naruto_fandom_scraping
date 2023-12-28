@@ -1,7 +1,7 @@
-\c naruto_db;
-
 \i docker-entrypoint-initdb.d/create.sql
-\i docker-entrypoint-initdb.d/inserts.sql
+\i docker-entrypoint-initdb.d/dumps/dump1
+
+\c naruto_db;
 
 CREATE OR REPLACE PROCEDURE insert_jutsu_have_seal(actual_seal_id INT, actual_jutsu_id INT, is_next_seal BOOLEAN)
 AS
