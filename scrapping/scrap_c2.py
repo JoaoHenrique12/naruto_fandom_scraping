@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from database_connector import DataBase
 from time import sleep
 
-from utils import NOT_FOUND, clean_string, load_info_ninjutsu, binary_search
+from utils import NOT_FOUND, clean_string, load_info_jutsu, binary_search
 
 def take_info(c2_name, link_page, headers):
     sleep(1)
@@ -27,7 +27,7 @@ def take_info(c2_name, link_page, headers):
         db.conn.commit()
 
 if __name__ == "__main__":
-    main_info = load_info_ninjutsu()
+    main_info = load_info_jutsu()
 
     if len(main_info['c2']) == 38:
         print("Classification 2 already added.")

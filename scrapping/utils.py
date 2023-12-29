@@ -12,7 +12,7 @@ def binary_search(lst, el):
 def clean_string(string):
     return string.strip().lower().replace('–','-')
 
-def load_info_ninjutsu(jutsu_name=None):
+def load_info_jutsu(jutsu_name=None):
     def load_label_id(query: str):
         with DataBase() as db:
             db.execute(query)
