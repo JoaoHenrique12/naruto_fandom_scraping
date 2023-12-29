@@ -13,7 +13,7 @@ def clean_string(string):
     return string.strip().lower().replace('–','-')
 
 def load_info_ninjutsu(jutsu_name):
-    def load_specific_info(query: str):
+    def load_label_id(query: str):
         with DataBase() as db:
             db.execute(query)
             values = [(clean_string(v[0]), v[1]) for v in db.cur.fetchall()]
@@ -22,15 +22,15 @@ def load_info_ninjutsu(jutsu_name):
         return dictionary
 
     main_info = {}
-    main_info['c1'] = load_specific_info("select label, id from classification where mark = '1';")
-    main_info['c2'] = load_specific_info("select label, id from classification where mark = '2';")
+    main_info['c1'] = load_label_id("select label, id from classification where mark = '1';")
+    main_info['c2'] = load_label_id("select label, id from classification where mark = '2';")
 
-    main_info['seals'] = load_specific_info("select label, id from seal;")
-    main_info['elements'] = load_specific_info("select label, id from classification where mark = 'E';")
+    main_info['seals'] = load_label_id("select label, id from seal;")
+    main_info['elements'] = load_label_id("select label, id from classification where mark = 'E';")
 
-    main_info['rank'] = load_specific_info("select label, id from classification where mark = 'R';")
-    main_info['used_for'] = load_specific_info("select label, id from classification where mark = 'U';")
+    main_info['rank'] = load_label_id("select label, id from classification where mark = 'R';")
+    main_info['used_for'] = load_label_id("select label, id from classification where mark = 'U';")
 
-    main_info['jutsu'] = load_specific_info(f"select 'id', id from jutsu where title='{jutsu_name}';")
+    main_info['jutsu'] = load_label_id(f"select 'id', id from jutsu where title='{jutsu_name}';")
 
     return main_info
