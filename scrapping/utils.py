@@ -12,7 +12,7 @@ def binary_search(lst, el):
 def clean_string(string):
     return string.strip().lower().replace('–','-')
 
-def load_info_ninjutsu(jutsu_name):
+def load_info_ninjutsu(jutsu_name=None):
     def load_label_id(query: str):
         with DataBase() as db:
             db.execute(query)
@@ -31,6 +31,7 @@ def load_info_ninjutsu(jutsu_name):
     main_info['rank'] = load_label_id("select label, id from classification where mark = 'R';")
     main_info['used_for'] = load_label_id("select label, id from classification where mark = 'U';")
 
-    main_info['jutsu'] = load_label_id(f"select 'id', id from jutsu where title='{jutsu_name}';")
+    if jutsu_name:
+        main_info['jutsu'] = load_label_id(f"select 'id', id from jutsu where title='{jutsu_name}';")
 
     return main_info
