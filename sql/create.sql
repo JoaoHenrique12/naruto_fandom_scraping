@@ -1,5 +1,3 @@
-\c naruto_db;
-
 -- Reset database, if not necessary coment lines above.
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
@@ -103,7 +101,3 @@ CREATE UNIQUE INDEX unique_permutation_jutsu_is_similar_jutsu ON jutsu_is_simila
 
 -- Simple index
 CREATE INDEX idx_jutsu_have_seal ON jutsu_have_seal (jutsu_id);
-
--- Functions/Triggers.
-
-\i docker-entrypoint-initdb.d/functions.sql
