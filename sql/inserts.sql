@@ -35,4 +35,5 @@ values
 ('E', 'Estilo Fogo', '(火遁, Katon) — é forte contra Vento, mas fraco contra Água.'),
 ('E', 'Estilo Vento','(風遁, Fuuton) — é forte contra Trovão, mas fraco contra Fogo.'),
 ('E', 'Estilo Terra','(土遁, Doton) — é forte contra Água, mas fraco contra Trovão.'),
+('E', 'Estilo Raio', '(雷遁, Raiton) — é forte contra Terra, mas fraco contra Vento.'),
 ('E', 'Estilo Água', '(水遁, Suiton) — é forte contra Fogo, mas fraco contra Terra.');

@@ -74,6 +74,7 @@ COPY public.classification (id, mark, label, description) FROM stdin;
 77	2	tenseijutsu	Tenseijutsu (転生術; literalmente significa: "Técnica de Reencarnação"; Crunchyroll: "Jutsu de Reanimação"),[1] também conhecido como Ninjutsu de Reencarnação (転生忍術, Tensei Ninjutsu; literalmente significa: "Técnica Ninja de Transferência de Vida"[2] ou "Técnica Ninja de Reencarnação"; Panini: "Ninjutsu de Transmigração"[2] ou "Ninjutsu de Transferência de Vida"), são técnicas que requerem ou realizam uma transferência de força vital entre pessoas. Sob circunstâncias normais, devido à morte do usuário ser envolvida, tais técnicas são geralmente classificadas como kinjutsu. A restauração de uma vida tipicamente requer o sacrifício de outra.\n
 78	2	tonjutsu	Mudança da Natureza (性質変化, Seishitsu Henka; Panini: "Manipulação da Natureza" ou "Transformação da Natureza"; Dublagem: "Mudança do Elemento" ou "Mudança de Natureza")[1][2] é uma forma avançada de controle do chakra. Isso implica na moldagem e definição do chakra em um tipo inato de natureza elemental, alterando suas propriedades e características. A Mudança da Natureza é um dos dois conceitos necessários para a criação de uma técnica, sendo o seu homólogo a Mudança da Forma.[3] Enquanto a Mudança da Natureza muda as propriedades do chakra, a Mudança da Forma muda a forma e o movimento.[4] Técnicas que incorporam chakra elemental são referidas como Tonjutsu (遁術; literalmente significa: "Técnica de Estilo"; Dublagem: "Estilo de Jutsu").[5]\n
 79	2	yuugoujutsu	Yuugoujutsu (融合術; literalmente significa: "Técnica de Fusão") é uma categoria de ninjutsu que consiste na combinação de diferentes naturezas de chakra simultaneamente, a fim de desencadear reações e efeitos distintos.[1] Com isso, é possível criar combinações mortais, tais como o uso de água para conduzir eletricidade[2] ou a combinação de água com vento para congelar o ambiente — com efeito similar à kekkei genkai de Estilo Gelo.[3]\n
+81	E	Estilo Raio	(雷遁, Raiton) — é forte contra Terra, mas fraco contra Vento.
 \.
 
 
@@ -158,7 +159,7 @@ COPY public.ninja_have_jutsu (ninja_id, jutsu_id) FROM stdin;
 -- Name: classification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.classification_id_seq', 79, true);
+SELECT pg_catalog.setval('public.classification_id_seq', 81, true);
 
 
 --
