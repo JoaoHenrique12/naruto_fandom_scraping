@@ -1,7 +1,7 @@
 from typing import List, Any
 import pytest
 
-from ..database_connector import DataBase
+from scrapping.database_connector import DataBase # type: ignore
 
 @pytest.mark.parametrize("ans_string, elements", [
     ("(true, false)", [True, False]),
