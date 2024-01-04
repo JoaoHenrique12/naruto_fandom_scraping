@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from database_connector import DataBase
 from time import sleep
 
-from utils import NOT_FOUND, clean_string, load_info_jutsu, binary_search
+from .utils import NOT_FOUND, clean_string, load_info_jutsu, binary_search
 
 def take_info(c2_name, link_page, headers):
     sleep(1)

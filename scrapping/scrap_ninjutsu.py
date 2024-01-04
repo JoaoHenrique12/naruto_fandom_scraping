@@ -4,7 +4,7 @@ import string
 
 from bs4 import BeautifulSoup
 
-from database_connector import DataBase
+from .database_connector import DataBase
 
 def process_jutsu(jutsu_title, soup):
     wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))

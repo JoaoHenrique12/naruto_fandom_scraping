@@ -1,6 +1,6 @@
 from bisect import bisect_left
 
-from database_connector import DataBase
+from .database_connector import DataBase
 
 NOT_FOUND = -1
 def binary_search(lst, el):
