@@ -16,6 +16,7 @@ def test_process_jutsu():
         ('Ataque de Relâmpago', 'M'),
         ('Caminho Humano', 'S'),
         ('Fórmula do Selo de Oito Trigramas', 'S'),
+        ('Prisão da Boca do Sapo', 'L'),
     ]
 
     for jutsu_title, distance in tests:
