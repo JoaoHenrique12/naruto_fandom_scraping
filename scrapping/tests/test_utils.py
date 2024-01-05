@@ -1,19 +1,7 @@
-import os
 import pytest
 
-from pathlib import Path
+from .utils import restart_db
 from scrapping.utils import load_info_jutsu # type: ignore
-
-
-def restart_db(dump_name = None):
-    base_dir = Path(f"{__file__}").resolve()
-    exec_file = base_dir.parent.parent / 'restart_db.sh'
-    exec_command = str(exec_file)
-
-    if dump_name:
-        exec_command += ' ' + dump_name
-
-    os.system(exec_command)
 
 @pytest.mark.database
 def test_load_info_jutsu():
