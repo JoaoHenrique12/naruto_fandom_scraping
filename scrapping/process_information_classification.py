@@ -35,3 +35,24 @@ def process_classification_c1_c2(jutsu_title, soup):
                 db.elements_to_string([
                     main_info['jutsu']['id'], main_info['c2'][c]
                 ]) + ";")
+
+def process_classification_rank(jutsu_title, soup):
+    rank = None
+
+    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+    main_info = load_info_jutsu(jutsu_title)
+
+    try:
+        link_rank = list(filter(lambda x: x['data-source'] == 'Rank', wrappers))[0].div
+        rank = link_rank.find("a", recursive=False).text
+        rank = clean_string(rank)
+        rank = rank if rank in main_info['rank'].keys() else None
+    except IndexError:
+        rank = None
+
+    if not rank:
+        return
+
+    with DataBase() as db:
+        db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
+            db.elements_to_string([ main_info['jutsu']['id'], main_info['rank'][rank] ]) + ";")
