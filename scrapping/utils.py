@@ -16,7 +16,7 @@ def load_info_jutsu(jutsu_name=None):
     def load_label_id(query: str):
         with DataBase() as db:
             db.execute(query)
-            values = [(clean_string(v[0]), v[1]) for v in db.cur.fetchall()]
+            values = [(clean_string(v[0]), int(v[1])) for v in db.cur.fetchall()]
             dictionary = dict(values)
 
         return dictionary
