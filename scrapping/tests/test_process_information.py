@@ -52,7 +52,7 @@ def test_process_ninjas():
             db.execute(f'''
             SELECT n.name 
             FROM 
-                (SELECT id, title FROM jutsu WHERE title = '{jutsu_title}') AS j
+                (SELECT id FROM jutsu WHERE title = '{jutsu_title}') AS j
             JOIN
                 ninja_have_jutsu AS nj
             on j.id = nj.jutsu_id
