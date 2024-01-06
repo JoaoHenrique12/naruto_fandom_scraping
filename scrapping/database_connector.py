@@ -28,7 +28,7 @@ class DataBase:
         self.cur = self.conn.cursor()
 
     def elements_to_string(self, elements: List[Any]):
-        if len(elements) == 0:
+        if len(elements) == 0 or type(elements) is not list:
             raise Exception("Elements list is empty, can't create insertion string.")
 
         string_ans = '('

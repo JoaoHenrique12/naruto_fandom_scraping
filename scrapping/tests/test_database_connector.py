@@ -18,6 +18,8 @@ def test_make_string(elements: List[Any], ans_string):
     [()],
     [{}],
     [],
+    33,
+    'string',
 ])
 def test_make_string_exception(elements):
     db = DataBase()
