@@ -48,11 +48,18 @@ def test_process_classification_c1_c2():
                 else:
                     c2_found.append(n[0])
 
-        c1 = list(map(clean_string, c1)).sort()
-        c2 = list(map(clean_string, c2)).sort()
+        c1 = list(map(clean_string, c1))
+        c2 = list(map(clean_string, c2))
 
-        c1_found = list(map(clean_string, c1_found)).sort()
-        c2_found = list(map(clean_string, c2_found)).sort()
+        c1_found = list(map(clean_string, c1_found))
+        c2_found = list(map(clean_string, c2_found))
+
+        c1.sort()
+        c1_found.sort()
+
+        c2.sort()
+        c2_found.sort()
+
         assert c1 == c1_found
         assert c2 == c2_found
 
