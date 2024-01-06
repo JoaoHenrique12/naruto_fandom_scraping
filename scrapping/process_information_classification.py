@@ -56,3 +56,35 @@ def process_classification_rank(jutsu_title, soup):
     with DataBase() as db:
         db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
             db.elements_to_string([ main_info['jutsu']['id'], main_info['rank'][rank] ]) + ";")
+
+def process_classification_element(jutsu_title, soup):
+    elements = None
+    new_elements = None
+
+    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+    main_info = load_info_jutsu(jutsu_title)
+
+    try:
+        links_element = list(filter(lambda x: x['data-source'] == 'Elemento', wrappers))[0].div
+        elements = [n.text for n in links_element.find_all("a", recursive=False)]
+        elements = list(map(clean_string, elements))
+
+        new_elements = list(filter(lambda x: x not in main_info['elements'].keys() and len(x) != 0, elements))
+        elements = list(filter(lambda x: x in main_info['elements'].keys(), elements))
+    except IndexError:
+        elements = []
+        new_elements = []
+
+    with DataBase() as db:
+        for n in new_elements:
+            db.execute('insert into classification (label, mark) values ' +
+                db.elements_to_string([ n, 'E' ]) + ";")
+        db.conn.commit()
+
+        main_info = load_info_jutsu(jutsu_title)
+        elements.extend(new_elements)
+        print(main_info['elements'])
+        for c in elements:
+            db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
+                db.elements_to_string([ main_info['jutsu']['id'], main_info['elements'][c] ]) + ";")
+

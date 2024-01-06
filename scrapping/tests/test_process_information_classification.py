@@ -2,7 +2,7 @@
 import pytest
 
 from scrapping.process_information import process_jutsu # type: ignore
-from scrapping.process_information_classification import process_classification_c1_c2, process_classification_rank # type: ignore
+from scrapping.process_information_classification import process_classification_c1_c2, process_classification_rank,process_classification_element # type: ignore
 from scrapping.database_connector import DataBase # type: ignore
 from scrapping.utils import clean_string # type: ignore
 from .utils import restart_db, get_page_content # type: ignore
@@ -99,3 +99,41 @@ def test_process_classification_rank():
 
         rank = clean_string(rank)
         assert rank == rank_found
+
+@pytest.mark.database
+def test_process_classification_element():
+    restart_db('dumps/classification2.sql')
+
+    tests =  [
+        ('A Herança da Vontade do Fogo', ['Estilo Água', 'Estilo Fogo', 'Estilo Madeira']),
+        ('Ataque de Relâmpago', ['Estilo Raio']),
+        ('Prisão da Boca do Sapo', [] ),
+    ]
+
+    for jutsu_title, elements in tests:
+        page_content = get_page_content(jutsu_title)
+        soup = BeautifulSoup(page_content, 'html.parser')
+        process_jutsu(jutsu_title, soup)
+        process_classification_element(jutsu_title, soup)
+        elements_found = None
+        with DataBase() as db:
+            db.execute(f'''
+            SELECT c.label
+            FROM 
+                (SELECT id FROM jutsu WHERE title = '{jutsu_title}') AS j
+            JOIN
+                jutsu_have_classification AS jc
+            ON j.id = jc.jutsu_id
+            JOIN
+                (select id, label, mark from classification where mark='E') AS c
+            ON c.id = jc.classification_id;''')
+
+            elements_found = [n[0] for n in db.cur.fetchall()]
+
+        elements_found = list(map(clean_string, elements_found))
+        elements = list(map(clean_string, elements))
+
+        elements.sort()
+        elements_found.sort()
+
+        assert elements_found == elements
