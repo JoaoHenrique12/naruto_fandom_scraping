@@ -1,3 +1,4 @@
+from .utils import clean_string, load_info_jutsu
 from .database_connector import DataBase
 
 def process_jutsu(jutsu_title, soup):
