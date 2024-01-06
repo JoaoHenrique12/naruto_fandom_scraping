@@ -16,10 +16,10 @@ def test_process_classification_c1_c2():
     tests =  [
         ('A Herança da Vontade do Fogo', 
              [ 'Ninjutsu', 'Taijutsu' ], [ 'Kekkei Genkai', 'Boujutsu', 'Bukijutsu', 'Kinjutsu', 'Konbijutsu', 'Ninjutsu Espaço-Tempo' ]),
-        # ('Ataque de Relâmpago',
-        #      ['Ninjutsu'], []),
-        # ('Caminho Humano',
-        #      [ 'Ninjutsu' ], ['Kekkei Genkai', 'Doujutsu']),
+        ('Ataque de Relâmpago',
+             ['Ninjutsu'], []),
+        ('Caminho Humano',
+             [ 'Ninjutsu' ], ['Kekkei Genkai', 'Doujutsu']),
     ]
 
     for jutsu_title, c1, c2 in tests:
