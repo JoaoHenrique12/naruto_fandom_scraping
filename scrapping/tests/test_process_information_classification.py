@@ -2,7 +2,9 @@
 import pytest
 
 from scrapping.process_information import process_jutsu # type: ignore
-from scrapping.process_information_classification import process_classification_c1_c2, process_classification_rank,process_classification_element # type: ignore
+from scrapping.process_information_classification import (process_classification_c1_c2, process_classification_rank, # type: ignore
+                process_classification_element, process_classification_used_for) # type: ignore
+
 from scrapping.database_connector import DataBase # type: ignore
 from scrapping.utils import clean_string # type: ignore
 from .utils import restart_db, get_page_content # type: ignore
@@ -137,3 +139,40 @@ def test_process_classification_element():
         elements_found.sort()
 
         assert elements_found == elements
+
+@pytest.mark.database
+def test_process_classification_used_for():
+    restart_db('dumps/classification2.sql')
+
+    tests =  [
+        ('Caminho Humano'              ,['Ofensivo', 'Suplementar'] ),
+        ('A Herança da Vontade do Fogo', ['Ofensivo']),
+        ('Estilo Ebulição'             ,[]),
+    ]
+
+    for jutsu_title, used_for in tests:
+        page_content = get_page_content(jutsu_title)
+        soup = BeautifulSoup(page_content, 'html.parser')
+        process_jutsu(jutsu_title, soup)
+        process_classification_used_for(jutsu_title, soup)
+        used_for_found = None
+        with DataBase() as db:
+            db.execute(f'''
+            SELECT c.label
+            FROM 
+                (SELECT id FROM jutsu WHERE title = '{jutsu_title}') AS j
+            JOIN
+                jutsu_have_classification AS jc
+            ON j.id = jc.jutsu_id
+            JOIN
+                (select id, label, mark from classification where mark='U') AS c
+            ON c.id = jc.classification_id;''')
+            used_for_found = [n[0] for n in db.cur.fetchall()]
+
+        used_for_found = list(map(clean_string, used_for_found))
+        used_for = list(map(clean_string, used_for))
+
+        used_for.sort()
+        used_for_found.sort()
+
+        assert used_for_found == used_for

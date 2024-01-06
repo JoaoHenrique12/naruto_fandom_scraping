@@ -83,8 +83,38 @@ def process_classification_element(jutsu_title, soup):
 
         main_info = load_info_jutsu(jutsu_title)
         elements.extend(new_elements)
-        print(main_info['elements'])
         for c in elements:
             db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
                 db.elements_to_string([ main_info['jutsu']['id'], main_info['elements'][c] ]) + ";")
+
+
+def process_classification_used_for(jutsu_title, soup):
+    used_for = None
+    new_used_for = None
+
+    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+    main_info = load_info_jutsu(jutsu_title)
+
+    try:
+        raw_used_for = list(filter(lambda x: x['data-source'] == 'Classe', wrappers))[0].div.text
+        used_for = raw_used_for.split(',')
+        used_for = list(map(clean_string, used_for))
+
+        new_used_for = list(filter(lambda x: x not in main_info['used_for'].keys() and len(x) != 0, used_for))
+        used_for = list(filter(lambda x: x in main_info['used_for'].keys(), used_for))
+    except IndexError:
+        used_for = []
+        new_used_for = []
+
+    with DataBase() as db:
+        for n in new_used_for:
+            db.execute('insert into classification (label, mark) values ' +
+                db.elements_to_string([ n, 'U' ]) + ";")
+        db.conn.commit()
+
+        main_info = load_info_jutsu(jutsu_title)
+        used_for.extend(new_used_for)
+        for c in used_for:
+            db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
+                db.elements_to_string([ main_info['jutsu']['id'], main_info['used_for'][c] ]) + ";")
 
