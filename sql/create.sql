@@ -48,11 +48,13 @@ CREATE TABLE IF NOT EXISTS classification (
 
 -- One to many
 CREATE TABLE IF NOT EXISTS jutsu_name (
-    jutsu_id INT NOT NULL PRIMARY KEY,
+    jutsu_id INT NOT NULL ,
     source VARCHAR(15) NOT NULL,
     name VARCHAR(100) NOT NULL,
 
-    CONSTRAINT FK_jutsu_name_jutsu FOREIGN KEY (jutsu_id) REFERENCES jutsu(id)
+    CONSTRAINT FK_jutsu_name_jutsu FOREIGN KEY (jutsu_id) REFERENCES jutsu(id),
+
+    CONSTRAINT PK_jutsu_name PRIMARY KEY(jutsu_id, source)
 );
 
 
