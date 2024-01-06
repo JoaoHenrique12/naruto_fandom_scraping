@@ -68,11 +68,13 @@ CREATE TABLE IF NOT EXISTS  jutsu_have_seal (
 );
 
 CREATE TABLE IF NOT EXISTS  jutsu_have_classification (
-    jutsu_id INT NOT NULL PRIMARY KEY,
+    jutsu_id INT NOT NULL,
     classification_id INT NOT NULL,
 
     CONSTRAINT FK_jutsu_have_classification_classification FOREIGN KEY(classification_id) REFERENCES classification(id),
-    CONSTRAINT FK_jutsu_have_classification_jutsu FOREIGN KEY(jutsu_id) REFERENCES jutsu(id)
+    CONSTRAINT FK_jutsu_have_classification_jutsu FOREIGN KEY(jutsu_id) REFERENCES jutsu(id),
+
+    CONSTRAINT PK_jutsu_have_classification_jutsu PRIMARY KEY(jutsu_id, classification_id)
 );
 
 CREATE TABLE IF NOT EXISTS  ninja_have_jutsu (
