@@ -1,3 +1,5 @@
+import re
+
 from .utils import clean_string, load_info_jutsu
 from .database_connector import DataBase
 
@@ -41,3 +43,51 @@ def process_ninjas(jutsu_title, soup):
 
         for ninja_id in ninja_ids:
             db.execute(f"insert into ninja_have_jutsu (ninja_id, jutsu_id) values " + db.elements_to_string([ninja_id, jutsu_id]) + ";")
+
+def process_jutsu_names(jutsu_title, soup):
+    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+
+    main_info = load_info_jutsu(jutsu_title)
+    panini_name = None
+    dublagem_name = None
+    games_name = None
+
+    try:
+        panini_name = list(filter(lambda x: x['data-source'] == 'Panini', wrappers))[0].div.text
+        panini_name = re.sub(r'\[.+\]', '',panini_name)
+    except IndexError:
+        panini_name = None
+
+    try:
+        dublagem_name = list(filter(lambda x: x['data-source'] == 'Dublagem', wrappers))[0].div.text
+        dublagem_name = re.sub(r'\[.+\]', '',dublagem_name)
+    except IndexError:
+        dublagem_name = None
+
+    try:
+        games_name = list(filter(lambda x: x['data-source'] == 'Games', wrappers))[0].div.text
+        games_name = re.sub(r'\[.+\]', '',games_name)
+    except IndexError:
+        games_name = None
+
+    with DataBase() as db:
+        if panini_name:
+            db.execute(f"insert into jutsu_name (jutsu_id, source, name) values " + db.elements_to_string([
+                main_info['jutsu']['id'],
+                'Panini',
+                panini_name
+            ]) + ";")
+
+        if dublagem_name:
+            db.execute(f"insert into jutsu_name (jutsu_id, source, name) values " + db.elements_to_string([
+                main_info['jutsu']['id'],
+                'Dublagem',
+                dublagem_name
+            ]) + ";")
+
+        if games_name:
+            db.execute(f"insert into jutsu_name (jutsu_id, source, name) values " + db.elements_to_string([
+                main_info['jutsu']['id'],
+                'Games',
+                games_name
+            ]) + ";")
