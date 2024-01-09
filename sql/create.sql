@@ -24,7 +24,7 @@ CREATE TYPE type_classification AS ENUM('1', '2', 'E', 'R', 'U');
 
 CREATE TABLE IF NOT EXISTS jutsu (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(50) NOT NULL UNIQUE,
+    title VARCHAR(100) NOT NULL UNIQUE,
     range_jutsu type_range_jutsu NOT NULL,
     image VARCHAR(200)
 );

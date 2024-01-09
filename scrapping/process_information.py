@@ -1,4 +1,5 @@
 import re
+import psycopg2
 
 from .utils import clean_string, load_info_jutsu
 from .database_connector import DataBase
@@ -20,8 +21,13 @@ def process_jutsu(jutsu_title, soup):
 
     values = [jutsu_title, jutsu_range, jutsu_image]
     with DataBase() as db:
-        query = "insert into jutsu (title, range_jutsu, image) values " + db.elements_to_string(values) + ';'
-        db.execute(query)
+        try:
+            query = "insert into jutsu (title, range_jutsu, image) values " + db.elements_to_string(values) + ';'
+            db.execute(query)
+            return True
+        except psycopg2.errors.UniqueViolation :
+            db.conn.rollback()
+            return False
 
 
 # Some seals have more than one hand sign to execute that jutsu
@@ -44,7 +50,7 @@ def process_seals(jutsu_title, wrappers):
         for rs in raw_seals:
             seals.append(rs[0])
             if len(rs) > 1:
-                print(jutsu_title)
+                print(rs)
 
         seals = list(map(clean_string, seals))
 
@@ -72,7 +78,11 @@ def process_ninjas(jutsu_title, wrappers):
     jutsu_id = None
     with DataBase() as db:
         for name in ninja_names:
-            db.execute(f"insert into ninja (name) values " + db.elements_to_string([name]) + ";")
+            try:
+                db.execute(f"insert into ninja (name) values " + db.elements_to_string([name]) + ";")
+                db.conn.commit()
+            except psycopg2.errors.UniqueViolation:
+                db.conn.rollback()
 
         db.execute("select id from ninja where name in " + db.elements_to_string(ninja_names) + ";")
         raw_ids = db.cur.fetchall()
