@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS jutsu (
     id SERIAL PRIMARY KEY,
     title VARCHAR(100) NOT NULL UNIQUE,
     range_jutsu type_range_jutsu NOT NULL,
-    image VARCHAR(200)
+    image VARCHAR(300)
 );
 
 CREATE TABLE IF NOT EXISTS seal (
