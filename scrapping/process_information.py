@@ -23,6 +23,49 @@ def process_jutsu(jutsu_title, soup):
         query = "insert into jutsu (title, range_jutsu, image) values " + db.elements_to_string(values) + ';'
         db.execute(query)
 
+
+# Some seals have more than one hand sign to execute that jutsu
+# we are getting the first seal that appears.
+#
+# Seals list: A, B, C, D, E
+# Ex: A -> B -> C or A -> E
+# Actualy the program capture:
+# A -> B -> C -> E
+def process_seals(jutsu_title, soup):
+    seals = None
+    new_seals = None
+
+    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+    main_info = load_info_jutsu(jutsu_title)
+
+    try:
+        raw_seals = list(filter(lambda x: x['data-source'] == 'Selos Manuais', wrappers))[0].div.text
+        raw_seals = [s.split('ou') for s in raw_seals.split('→')]
+        seals = []
+
+        for rs in raw_seals:
+            seals.append(rs[0])
+            if len(rs) > 1:
+                print(jutsu_title)
+
+        seals = list(map(clean_string, seals))
+
+        new_seals = list(filter(lambda x: x not in main_info['seals'].keys() and len(x) != 0, seals))
+        seals = list(filter(lambda x: len(x) != 0, seals))
+    except IndexError:
+        seals = []
+        new_seals = []
+
+    with DataBase() as db:
+        for n in new_seals:
+            db.execute('insert into seal (label) values ' + db.elements_to_string([ n ]) + ";")
+        db.conn.commit()
+
+        main_info = load_info_jutsu(jutsu_title)
+        for s in seals:
+            db.execute('CALL insert_jutsu_have_seal' +
+                db.elements_to_string([main_info['seals'][s], main_info['jutsu']['id'], True ]) + ";")
+
 def process_ninjas(jutsu_title, soup):
     wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     links_ninjas = list(filter(lambda x: x['data-source'] == 'Usuários', wrappers))[0].div
