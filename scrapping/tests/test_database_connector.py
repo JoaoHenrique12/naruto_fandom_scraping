@@ -7,7 +7,8 @@ from scrapping.database_connector import DataBase # type: ignore
     ("(true, false)", [True, False]),
     ("(10.20, -3.50)", [10.200, -3.50001]),
     ("(10, -3)", [10, -3]),
-    ("('utf-8', 'tônica', 'português')", ['utf-8', 'tônica','português'])
+    ("(E'utf-8', E'tônica', E'português')", ['utf-8', 'tônica','português']),
+    ( "(E'Banshou Ten\\\'in')", ['Banshou Ten\'in'])
 ])
 def test_make_string(elements: List[Any], ans_string):
     db = DataBase()

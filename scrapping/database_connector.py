@@ -39,7 +39,8 @@ class DataBase:
             elif type(el) == float:
                 string_ans += "%.2f, " % (el)
             elif type(el) == str:
-                string_ans += "'%s', " % (el)
+                el = el.replace("'", r'\'')
+                string_ans += "E'%s', " % (el)
             elif type(el) == bool:
                 string_ans += "true, " if el else "false, "
             else:

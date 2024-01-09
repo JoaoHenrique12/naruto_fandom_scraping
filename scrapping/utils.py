@@ -10,7 +10,8 @@ def binary_search(lst, el):
     return NOT_FOUND
 
 def clean_string(string):
-    return string.strip().lower().replace('–','-')
+    return string.strip().lower().replace('–','-').replace("'", r'\'')
+
 
 def load_info_jutsu(jutsu_name=None):
     def load_label_id(query: str):
