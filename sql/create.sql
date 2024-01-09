@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS classification (
 CREATE TABLE IF NOT EXISTS jutsu_name (
     jutsu_id INT NOT NULL ,
     source VARCHAR(15) NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(200) NOT NULL,
 
     CONSTRAINT FK_jutsu_name_jutsu FOREIGN KEY (jutsu_id) REFERENCES jutsu(id),
 
