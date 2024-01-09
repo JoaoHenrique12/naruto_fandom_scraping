@@ -71,8 +71,14 @@ def process_seals(jutsu_title, wrappers):
                 db.elements_to_string([main_info['seals'][s], main_info['jutsu']['id'], True ]) + ";")
 
 def process_ninjas(jutsu_title, wrappers):
-    links_ninjas = list(filter(lambda x: x['data-source'] == 'Usuários', wrappers))[0].div
-    ninja_names = [n.text for n in links_ninjas.find_all("a", recursive=False)]
+    try:
+        links_ninjas = list(filter(lambda x: x['data-source'] == 'Usuários', wrappers))[0].div
+        ninja_names = [n.text for n in links_ninjas.find_all("a", recursive=False)]
+    except IndexError:
+        ninja_names = []
+
+    if len(ninja_names) == 0:
+        return
 
     ninja_ids = None
     jutsu_id = None
