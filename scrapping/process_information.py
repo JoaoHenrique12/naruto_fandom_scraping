@@ -31,11 +31,9 @@ def process_jutsu(jutsu_title, soup):
 # Ex: A -> B -> C or A -> E
 # Actualy the program capture:
 # A -> B -> C -> E
-def process_seals(jutsu_title, soup):
+def process_seals(jutsu_title, wrappers):
     seals = None
     new_seals = None
-
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     main_info = load_info_jutsu(jutsu_title)
 
     try:
@@ -66,8 +64,7 @@ def process_seals(jutsu_title, soup):
             db.execute('CALL insert_jutsu_have_seal' +
                 db.elements_to_string([main_info['seals'][s], main_info['jutsu']['id'], True ]) + ";")
 
-def process_ninjas(jutsu_title, soup):
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+def process_ninjas(jutsu_title, wrappers):
     links_ninjas = list(filter(lambda x: x['data-source'] == 'Usuários', wrappers))[0].div
     ninja_names = [n.text for n in links_ninjas.find_all("a", recursive=False)]
 
@@ -87,9 +84,7 @@ def process_ninjas(jutsu_title, soup):
         for ninja_id in ninja_ids:
             db.execute(f"insert into ninja_have_jutsu (ninja_id, jutsu_id) values " + db.elements_to_string([ninja_id, jutsu_id]) + ";")
 
-def process_jutsu_names(jutsu_title, soup):
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
-
+def process_jutsu_names(jutsu_title, wrappers):
     main_info = load_info_jutsu(jutsu_title)
     panini_name = None
     dublagem_name = None

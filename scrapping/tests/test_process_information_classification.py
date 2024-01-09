@@ -27,8 +27,10 @@ def test_process_classification_c1_c2():
     for jutsu_title, c1, c2 in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+
         process_jutsu(jutsu_title, soup)
-        process_classification_c1_c2(jutsu_title, soup)
+        process_classification_c1_c2(jutsu_title, wrappers)
 
         c1_found = []
         c2_found = []
@@ -78,8 +80,10 @@ def test_process_classification_rank():
     for jutsu_title, rank in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+
         process_jutsu(jutsu_title, soup)
-        process_classification_rank(jutsu_title, soup)
+        process_classification_rank(jutsu_title, wrappers)
         rank_found = None
         with DataBase() as db:
             db.execute(f'''
@@ -115,8 +119,10 @@ def test_process_classification_element():
     for jutsu_title, elements in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
+
         process_jutsu(jutsu_title, soup)
-        process_classification_element(jutsu_title, soup)
+        process_classification_element(jutsu_title, wrappers)
         elements_found = None
         with DataBase() as db:
             db.execute(f'''
@@ -153,8 +159,9 @@ def test_process_classification_used_for():
     for jutsu_title, used_for in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
         process_jutsu(jutsu_title, soup)
-        process_classification_used_for(jutsu_title, soup)
+        process_classification_used_for(jutsu_title, wrappers)
         used_for_found = None
         with DataBase() as db:
             db.execute(f'''

@@ -1,11 +1,9 @@
 from .utils import clean_string, load_info_jutsu
 from .database_connector import DataBase
 
-def process_classification_c1_c2(jutsu_title, soup):
+def process_classification_c1_c2(jutsu_title, wrappers):
     c1 = None
     c2 = None
-
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     main_info = load_info_jutsu(jutsu_title)
 
     try:
@@ -36,10 +34,8 @@ def process_classification_c1_c2(jutsu_title, soup):
                     main_info['jutsu']['id'], main_info['c2'][c]
                 ]) + ";")
 
-def process_classification_rank(jutsu_title, soup):
+def process_classification_rank(jutsu_title, wrappers):
     rank = None
-
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     main_info = load_info_jutsu(jutsu_title)
 
     try:
@@ -57,11 +53,10 @@ def process_classification_rank(jutsu_title, soup):
         db.execute('insert into jutsu_have_classification (jutsu_id, classification_id) values ' +
             db.elements_to_string([ main_info['jutsu']['id'], main_info['rank'][rank] ]) + ";")
 
-def process_classification_element(jutsu_title, soup):
+def process_classification_element(jutsu_title, wrappers):
     elements = None
     new_elements = None
 
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     main_info = load_info_jutsu(jutsu_title)
 
     try:
@@ -88,11 +83,10 @@ def process_classification_element(jutsu_title, soup):
                 db.elements_to_string([ main_info['jutsu']['id'], main_info['elements'][c] ]) + ";")
 
 
-def process_classification_used_for(jutsu_title, soup):
+def process_classification_used_for(jutsu_title, wrappers):
     used_for = None
     new_used_for = None
 
-    wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
     main_info = load_info_jutsu(jutsu_title)
 
     try:

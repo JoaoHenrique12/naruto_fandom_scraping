@@ -46,8 +46,9 @@ def test_process_seals():
     for jutsu_title, seals in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
         process_jutsu(jutsu_title, soup)
-        process_seals(jutsu_title, soup)
+        process_seals(jutsu_title, wrappers)
 
         seals_found = None
         with DataBase() as db:
@@ -83,8 +84,9 @@ def test_process_ninjas():
     for jutsu_title, ninjas in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
         process_jutsu(jutsu_title, soup)
-        process_ninjas(jutsu_title, soup)
+        process_ninjas(jutsu_title, wrappers)
 
         ninjas_found = None
         with DataBase() as db:
@@ -119,8 +121,9 @@ def test_process_jutsu_names():
     for jutsu_title, names in tests:
         page_content = get_page_content(jutsu_title)
         soup = BeautifulSoup(page_content, 'html.parser')
+        wrappers = soup.find_all(lambda tag: tag.has_attr('data-source'))
         process_jutsu(jutsu_title, soup)
-        process_jutsu_names(jutsu_title, soup)
+        process_jutsu_names(jutsu_title, wrappers)
         main_info = load_info_jutsu(jutsu_title)
         names_found = None
         with DataBase() as db:
