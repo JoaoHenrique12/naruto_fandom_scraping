@@ -1,3 +1,5 @@
+import re
+
 from .utils import clean_string, load_info_jutsu
 from .database_connector import DataBase
 
@@ -91,7 +93,7 @@ def process_classification_used_for(jutsu_title, wrappers):
 
     try:
         raw_used_for = list(filter(lambda x: x['data-source'] == 'Classe', wrappers))[0].div.text
-        used_for = raw_used_for.split(',')
+        used_for = re.split(r',| e ', raw_used_for)
         used_for = list(map(clean_string, used_for))
 
         new_used_for = list(filter(lambda x: x not in main_info['used_for'].keys() and len(x) != 0, used_for))

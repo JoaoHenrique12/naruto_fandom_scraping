@@ -154,6 +154,9 @@ def test_process_classification_used_for():
         ('Caminho Humano'              ,['Ofensivo', 'Suplementar'] ),
         ('A Herança da Vontade do Fogo', ['Ofensivo']),
         ('Estilo Ebulição'             ,[]),
+        ('Oito Trigramas Palma de Rede'    ,['Ofensivo', 'Suplementar']),
+        ('Barreira Labiríntica'    ,['Curto', 'Médio', 'Longo']),
+        ('Dança do Shikigami'    ,['Ofensivo', 'Defensivo', 'Suplementar']),
     ]
 
     for jutsu_title, used_for in tests:
