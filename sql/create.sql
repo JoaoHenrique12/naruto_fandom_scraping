@@ -89,19 +89,5 @@ CREATE TABLE IF NOT EXISTS  ninja_have_jutsu (
     CONSTRAINT PK_ninja_have_jutsu PRIMARY KEY(ninja_id, jutsu_id)
 );
 
-CREATE TABLE IF NOT EXISTS  jutsu_is_similar_jutsu (
-    first_jutsu_id INT NOT NULL,
-    second_jutsu_id INT NOT NULL,
-
-    CONSTRAINT FK_jutsu_have_seal_jutsu_first FOREIGN KEY(first_jutsu_id) REFERENCES jutsu(id),
-    CONSTRAINT FK_jutsu_have_seal_jutsu_second FOREIGN KEY(second_jutsu_id) REFERENCES jutsu(id)
-);
-
--- Unique constraints.
-CREATE UNIQUE INDEX unique_permutation_jutsu_is_similar_jutsu ON jutsu_is_similar_jutsu (
-  LEAST(first_jutsu_id, second_jutsu_id),
-  GREATEST(first_jutsu_id, second_jutsu_id)
-);
-
 -- Simple index
 CREATE INDEX idx_jutsu_have_seal ON jutsu_have_seal (jutsu_id);

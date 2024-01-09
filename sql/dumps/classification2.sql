@@ -124,14 +124,6 @@ COPY public.jutsu_have_seal (seal_id, jutsu_id, "position") FROM stdin;
 
 
 --
--- Data for Name: jutsu_is_similar_jutsu; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.jutsu_is_similar_jutsu (first_jutsu_id, second_jutsu_id) FROM stdin;
-\.
-
-
---
 -- Data for Name: jutsu_name; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
