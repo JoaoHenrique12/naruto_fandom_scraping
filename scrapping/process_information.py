@@ -54,7 +54,7 @@ def process_seals(jutsu_title, wrappers):
 
         seals = list(map(clean_string, seals))
 
-        new_seals = list(filter(lambda x: x not in main_info['seals'].keys() and len(x) != 0, seals))
+        new_seals = list(filter(lambda x: clean_string(x) not in main_info['seals'].keys() and len(x) != 0, seals))
         seals = list(filter(lambda x: len(x) != 0, seals))
     except IndexError:
         seals = []
