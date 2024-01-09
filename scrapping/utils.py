@@ -1,3 +1,4 @@
+import re
 from bisect import bisect_left
 
 from .database_connector import DataBase
@@ -10,6 +11,7 @@ def binary_search(lst, el):
     return NOT_FOUND
 
 def clean_string(string):
+    string = re.sub(r'\[.+\]', '', string)
     return string.strip().lower().replace('–','-').replace("'", r'\'')
 
 
