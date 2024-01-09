@@ -100,10 +100,10 @@ COPY public.jutsu_have_classification (jutsu_id, classification_id) FROM stdin;
 
 COPY public.seal (id, label) FROM stdin;
 1	???       
-2	Passaro   
+2	Pássaro   
 3	Javali    
-4	Cao       
-5	Dragao    
+4	Cão       
+5	Dragão    
 6	Boi       
 7	Tigre     
 8	Cobra     
