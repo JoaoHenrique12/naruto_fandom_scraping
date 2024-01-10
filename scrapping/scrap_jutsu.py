@@ -30,7 +30,7 @@ if __name__ == "__main__":
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         'Accept': 'text/html'
     }
-    for jutsu_type in ['Ninjutu', 'Genjutsu', 'Taijutsu', 'Shinjutsu']:
+    for jutsu_type in ['Ninjutsu', 'Genjutsu', 'Taijutsu', 'Shinjutsu']:
         for l in string.ascii_uppercase:
             page_link = link_root + f'/pt-br/wiki/Categoria:{jutsu_type}?from={l}'
             page = requests.get(page_link, headers=headers)
