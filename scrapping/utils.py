@@ -35,6 +35,7 @@ def load_info_jutsu(jutsu_name=None):
     main_info['used_for'] = load_label_id("select label, id from classification where mark = 'U';")
 
     if jutsu_name:
+        jutsu_name = jutsu_name.replace("'", r'\'')
         main_info['jutsu'] = load_label_id(f"select 'id', id from jutsu where title=E'{jutsu_name}';")
 
     return main_info
