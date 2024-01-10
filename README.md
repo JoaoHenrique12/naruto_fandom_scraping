@@ -42,3 +42,5 @@ pgadmin.
 Caso você prefira acessar utilizando o pgadmin lembre-se de que quando 
 for inserir o novo server defina o Host name : postgres, ao invés de 
 localhost.
+
+![database gif shell](images/database.gif)
