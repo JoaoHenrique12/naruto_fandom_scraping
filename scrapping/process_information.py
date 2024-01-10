@@ -37,6 +37,10 @@ def process_jutsu(jutsu_title, soup):
 # Ex: A -> B -> C or A -> E
 # Actualy the program capture:
 # A -> B -> C -> E
+#
+# Parenthesis example:
+# Ex: (A -> B -> C or D) or (A -> E)
+# A -> B -> C 
 def process_seals(jutsu_title, wrappers):
     seals = None
     new_seals = None
@@ -44,18 +48,20 @@ def process_seals(jutsu_title, wrappers):
 
     try:
         raw_seals = list(filter(lambda x: x['data-source'] == 'Selos Manuais', wrappers))[0].div.text
+
+        parenthesis_seals = re.findall(r'\((.+?)\)', raw_seals)
+        if parenthesis_seals:
+            raw_seals = parenthesis_seals[0]
+
         raw_seals = [s.split('ou') for s in raw_seals.split('→')]
-        seals = []
 
-        for rs in raw_seals:
-            seals.append(rs[0])
-            if len(rs) > 1:
-                print(rs)
-
+        seals = [ rs[0] for rs in raw_seals]
         seals = list(map(clean_string, seals))
 
         new_seals = list(filter(lambda x: clean_string(x) not in main_info['seals'].keys() and len(x) != 0, seals))
         seals = list(filter(lambda x: len(x) != 0, seals))
+        print("SEALS -> " + str(seals))
+        print("NEW -> " + str(new_seals))
     except IndexError:
         seals = []
         new_seals = []

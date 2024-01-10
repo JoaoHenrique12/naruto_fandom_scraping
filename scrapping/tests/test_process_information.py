@@ -41,6 +41,7 @@ def test_process_seals():
         ('A Herança da Vontade do Fogo', []),
         ('Ataque de Relâmpago',['Tigre', 'Cobra', 'Cão']),
         ('Prisão da Boca do Sapo', ['Serpente', 'Javali', 'Rato', 'Dragão', 'Javali', 'Dragão', 'Tigre',  'Ambas as palmas das mãos no chão']),
+        ('Fúria', ['Javali', 'Cão', 'Cobra']),
     ]
 
     for jutsu_title, seals in tests:
