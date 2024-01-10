@@ -30,20 +30,21 @@ if __name__ == "__main__":
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         'Accept': 'text/html'
     }
-    for l in string.ascii_uppercase:
-        page_link = link_root + f'/pt-br/wiki/Categoria:Ninjutsu?from={l}'
-        page = requests.get(page_link, headers=headers)
+    for jutsu_type in ['Ninjutu', 'Genjutsu', 'Taijutsu', 'Shinjutsu']:
+        for l in string.ascii_uppercase:
+            page_link = link_root + f'/pt-br/wiki/Categoria:{jutsu_type}?from={l}'
+            page = requests.get(page_link, headers=headers)
 
-        soup = BeautifulSoup(page.content, "html.parser")
-        css_selector = "#mw-content-text > div.category-page__members > div > ul > li > a"
+            soup = BeautifulSoup(page.content, "html.parser")
+            css_selector = "#mw-content-text > div.category-page__members > div > ul > li > a"
 
-        jutsu_link_list = soup.select(css_selector)
+            jutsu_link_list = soup.select(css_selector)
 
-        tot_page = len(jutsu_link_list)
-        for pos, jutsu_link in enumerate(jutsu_link_list, 1):
-            jutsu_page_content = requests.get(link_root + jutsu_link['href'], headers=headers).content # type: ignore
-            jutsu_title = jutsu_link['title']
+            tot_page = len(jutsu_link_list)
+            for pos, jutsu_link in enumerate(jutsu_link_list, 1):
+                jutsu_page_content = requests.get(link_root + jutsu_link['href'], headers=headers).content # type: ignore
+                jutsu_title = jutsu_link['title']
 
-            print("{:.2f}".format((pos/tot_page) * 100), end=' ')
-            get_jutsu_information_then_process(jutsu_title, jutsu_page_content)
-            sleep(0.3)
+                print("{:.2f}".format((pos/tot_page) * 100), end=' ')
+                get_jutsu_information_then_process(jutsu_title, jutsu_page_content)
+                sleep(0.1)
