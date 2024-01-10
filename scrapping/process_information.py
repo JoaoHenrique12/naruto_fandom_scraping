@@ -66,8 +66,11 @@ def process_seals(jutsu_title, wrappers):
 
     with DataBase() as db:
         for n in new_seals:
-            db.execute('insert into seal (label) values ' + db.elements_to_string([ n ]) + ";")
-        db.conn.commit()
+            try:
+                db.execute('insert into seal (label) values ' + db.elements_to_string([ n ]) + ";")
+                db.conn.commit()
+            except psycopg2.errors.UniqueViolation:
+                db.conn.rollback()
 
         main_info = load_info_jutsu(jutsu_title)
         for s in seals:
