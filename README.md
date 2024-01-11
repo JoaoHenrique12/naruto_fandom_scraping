@@ -36,11 +36,22 @@ $ docker exec -it naruto_fandom_scraping_postgres_1 psql -U postgres -d naruto_d
 [docker-compose.yml](docker-compose.yml).
 
 Com esta sequência de passos você acessa o shell do postgres. Se houver
-algum erro ao executar o primeiro comando considere trocar a porta do
+algum erro ao executar o primeiro comando, considere trocar a porta do
 pgadmin. 
 
-Caso você prefira acessar utilizando o pgadmin lembre-se de que quando 
-for inserir o novo server defina o Host name : postgres, ao invés de 
-localhost.
+Caso você prefira acessar a base utilizando o pgadmin
+lembre-se de que quando for inserir o novo server defina
+o Host name : postgres, ao invés de localhost. Lembre-se, os container
+estão na rede chamada spider_web e uma maneira de acessar o host é 
+através do container label.
 
 ![database gif shell](images/database.gif)
+
+## Como executar o web scrapper ?
+
+[Tutorial](SCRAPPER.md)
+
+O tutorial a cima só é útil para quem deseja compreender melhor sobre
+como os dados foram obtidos da fandom. Ou para quem deseja fazer 
+alterações no código principal e obter um dump diferente dos já 
+existentes.
