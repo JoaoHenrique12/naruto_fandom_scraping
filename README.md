@@ -41,7 +41,7 @@ pgadmin.
 
 Caso você prefira acessar a base utilizando o pgadmin
 lembre-se de que quando for inserir o novo server defina
-o Host name : postgres, ao invés de localhost. Lembre-se, os container
+o Host name : postgres, ao invés de localhost. Os container
 estão na rede chamada spider_web e uma maneira de acessar o host é 
 através do container label.
 
